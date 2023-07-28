@@ -1,17 +1,13 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using HairSalon.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace HairSalon.solution.Controllers;
-
-public class HomeController : Controller
+namespace HairSalon.Controllers
 {
-   
-
-
-    public IActionResult Index()
+  public class HomeController : Controller
+  {
+    [HttpGet("/")]
+    public ActionResult Index()
     {
-        return View();
-    
+      return View();
     }
+  }
 }
