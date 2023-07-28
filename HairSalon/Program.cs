@@ -1,39 +1,27 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using HairSalon.Models;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace HairSalon
 {
-  class Program
-  {
-    static void Main(string[] args)
+  [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+  public class Program
     {
-      WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+        public static void Main(string[] args)
+        {
+            CreateHostBuilder(args).Build().Run();
+        }
 
-      builder.Services.AddControllersWithViews();
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
 
-      builder.Services.AddDbContext<HairSalonDbContext>(
-                        dbContextOptions => dbContextOptions
-                          .UseMySql(
-                            builder.Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(builder.Configuration["ConnectionStrings:DefaultConnection"]
-                          )
-                        )
-                      );
-
-      WebApplication app = builder.Build();
-
-      // app.UseDeveloperExceptionPage();
-      app.UseHttpsRedirection();
-      app.UseStaticFiles();
-
-      app.UseRouting();
-
-      app.MapControllerRoute(
-          name: "default",
-          pattern: "{controller=Home}/{action=Index}/{id?}");
-
-      app.Run();
+    private string GetDebuggerDisplay()
+    {
+      return ToString();
     }
   }
 }

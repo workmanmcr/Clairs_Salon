@@ -1,28 +1,24 @@
 @{
-  Layout = "_Layout";
+    Layout = "_Layout";
 }
 
 @model HairSalon.Models.Client
 
-<h2>Edit client</h2>
+<h2>Edit</h2>
 
-<br>
+<h4>Edit this client: @Html.DisplayFor(model => model.Name)</h4>
+
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(model => model.ClientId)
 
-    <p>Name</p>
-    <p>@Html.EditorFor(model => model.Name)</p>
+    @Html.LabelFor(model => model.Name)
+    @Html.EditorFor(model => model.Name)
 
-    <p>Stylist</p>
-    <p>@Html.DropDownList("StylistId")</p>
+    @Html.LabelFor(model => model.Stylist)
+    @Html.DropDownList("StylistId")
 
-    <p>Phone</p>
-    <p>@Html.EditorFor(model => model.Number)</p>
-
-    
-<br>
-    <input type="submit" value="Save" class="btn" />
+    <input type="submit" value="Save" />
 }
-<br>
-<p>@Html.ActionLink("Back to clients", "Index")</p>
+
+<p>@Html.ActionLink("Back to list", "Index",null, new {style = "color:lightgreen"})</p>

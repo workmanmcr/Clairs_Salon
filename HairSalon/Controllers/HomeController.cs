@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
+using HairSalon.Models;
 
 namespace HairSalon.Controllers
 {
-  public class HomeController : Controller
-  {
-    [HttpGet("/")]
-    public ActionResult Index()
+    public class HomeController : Controller
     {
-      return View();
+        [HttpGet("/")]
+        public ActionResult Index()
+        {
+            return View();
+        }
     }
-  }
 }

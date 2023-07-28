@@ -12,9 +12,13 @@
   <h3>No clients have been added yet!</h3>
 } 
 
-@foreach (Client client in Model)
+
+<ul>
+  @foreach (Client client in Model)
 {
-  <li>@Html.ActionLink($"{client.Name}", "Details", new { id = client.ClientId }) | @client.Stylist.Name </li>
+  <li>@Html.ActionLink($"{client.Name}", "Details", new { id = client.ClientId},null) | @client.Stylist.Name</li>
 }
-<br>
-<p>@Html.ActionLink("Back to home", "Index", "Home")</p>
+</ul>
+
+
+<p>@Html.ActionLink("Add a new client", "Create",null, new {style = "color:lightgreen"})</p>

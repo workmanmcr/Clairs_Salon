@@ -1,5 +1,5 @@
 @{
-  Layout = "_Layout";
+    Layout = "_Layout";
 }
 
 @model HairSalon.Models.Stylist
@@ -10,13 +10,12 @@
 
 @using (Html.BeginForm())
 {
-    <p>@Html.HiddenFor(model => model.StylistId)</p>
-    <p>Name</p>
-    <p>@Html.EditorFor(model => model.Name, new { @class = "form-control", required="required", style="width: 300px;"})</p>
-    <p>Phone</p>
-    <p>@Html.EditorFor(model => model.Number, new { @class = "form-control", required="required", style="width: 300px;"})</p>
-    <br>
-    <input type="submit" value="Save" class="btn"/>
+    @Html.HiddenFor(model => model.StylistId)
+
+    @Html.LabelFor(model => model.Name)
+    @Html.EditorFor(model => model.Name)
+
+    <input type="submit" value="Save" />
 }
-<br>
-<p>@Html.ActionLink("Back to stylists", "Index")</p>
+
+<p>@Html.ActionLink("Back to list", "Index")</p>
