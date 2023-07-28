@@ -1,48 +1,55 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using HairSalon.Models;
 
 namespace HairSalon
 {
-  public class Startup
-  {
-    public Startup(IWebHostEnvironment env)
+    public class Startup
     {
-      var builder = new ConfigurationBuilder()
-          .SetBasePath(env.ContentRootPath)
-          .AddEnvironmentVariables();
-      Configuration = builder.Build();
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc();
+
+            string connectionString = Configuration["ConnectionStrings:DefaultConnection"];
+            ServerVersion serverVersion = ServerVersion.AutoDetect(connectionString);
+
+            services.AddDbContext<HairSalonContext>(options =>
+                options.UseMySql(connectionString, serverVersion)
+            );
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+            }
+
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+        }
     }
-
-    public IConfigurationRoot Configuration { get; }
-
-    public void ConfigureServices(IServiceCollection services)
-    {
-      services.AddMvc();
-    }
-
-public void Configure(IApplicationBuilder app)
-{
-    app.UseDeveloperExceptionPage();
-    app.UseStaticFiles();
-
-    // Remove app.UseMvc(...)
-    // Instead, use Endpoint Routing
-    app.UseRouting();
-    
-    // Other middleware configurations...
-
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapControllerRoute(
-            name: "default",
-            pattern: "{controller=Home}/{action=Index}/{id?}");
-        
-        // Additional endpoint mappings if needed...
-    });
-
-    }
-  }
 }
