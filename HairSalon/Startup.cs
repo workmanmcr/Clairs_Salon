@@ -24,7 +24,7 @@ namespace HairSalon
             string connectionString = Configuration["ConnectionStrings:DefaultConnection"];
             ServerVersion serverVersion = ServerVersion.AutoDetect(connectionString);
 
-            services.AddDbContext<HairSalonContext>(options =>
+            services.AddDbContext<HairSalonDbContext>(options =>
                 options.UseMySql(connectionString, serverVersion)
             );
         }
