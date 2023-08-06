@@ -33,7 +33,7 @@ This application is intended to help a salon owner keep track of all their styli
 1. Open MySQL Workbench and navigate to the Administration tab
 2. Under the Management label, click Data Import/Restore
 3. Under the Import Options tab, select the circle for Import from Self-Contained File and click the small button with two dots after the text box
-4. In the window that pops up, navigate to the root level of this project, titled HairSalon.Solution and select the file titled elizabeth_luckie.sql
+4. In the window that pops up, navigate to the root level of this project, titled HairSalon.Solution and select the file titled mike_Workman.sql
 5. Under the Default Target Schema tab, select the New button and create a name for your new database
 6. Verify your database is named properly and click the Start Import button. Once complete, you will receive a confirmation from MySQL
 7. Once your import is complete, navigate to the Schemas tab at the top of the page. Once you click the small refresh icon in the upper right corner, your new database should populate within the list
